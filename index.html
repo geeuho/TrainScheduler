@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <title>Train Scheduler</title>
+</head>
+<body>
+	<div class="jumbotron">
+  		<h1>It's time to go on an adventure</h1>
+  		<p>Schedule your train ride here!</p>
+	</div>
+	<div class="panel panel-default">
+  <!-- Default panel contents -->
+  	<div class="panel-heading">Train Schedule</div>
+  		<div class="panel-body">
+    		<table>
+    			<b class="col-md-3">Train Name</b>
+    			<b class="col-md-3">Destination</b>
+    			<b class="col-md-2">Frequency(min)</b>
+    			<b class="col-md-2">Next Arrival</b>
+    			<b class="col-md-2">Minutes Away</b>
+    		</table>
+  		
+	<br><br>
+  <!-- Table -->
+  			<table class="table">
+    			<span class="col-md-3" id=name>Train Name</span>
+    			<span class="col-md-3" id=destination>Destination</span>
+    			<span class="col-md-2" id=frequency>Frequency(min)</span>
+    			<span class="col-md-2" id=arrival>Next Arrival</span>
+    			<span class="col-md-2" id=minutes>Minutes Away</span>
+  			</table>
+  		</div>
+	</div>
+        <!-- Wells for displaying all users -->
+ 
+	<h2>Input Train Info!</h2>
+	<div class=conatiner>
+	<div class="input-group">
+		Train Name
+		<br>
+  		<input type="text" id="nametext" placeholder="Username"></input>
+	</div>
+	
+	<div class="input-group">
+		Destination
+		<br>
+  		<input type="text" id="destinationtext" placeholder="Username"></input>
+	</div>
+
+	<div class="input-group">
+		First Train Time 
+		<br>
+  		<input type="text" id="firsttext" placeholder="Username"></input>
+	</div>
+
+	<div class="input-group">
+		Frequency (min)
+		<br>
+  		<input type="text" id="frequencytext" placeholder="Username"></input>
+	</div>
+	<button id="submitBtn" onclick="submitClick()">Submit</button>
+	</div>
+	</div>
+
+	<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+		<script>
+  // Initialize Firebase
+  		var config = {
+    		apiKey: "AIzaSyCI952Wnf0JJiQnta93Qqf52bhZ6euoOjw",
+    		authDomain: "trainscheduler-21700.firebaseapp.com",
+   			databaseURL: "https://trainscheduler-21700.firebaseio.com",
+    		projectId: "trainscheduler-21700",
+    		storageBucket: "trainscheduler-21700.appspot.com",
+    		messagingSenderId: "608648764316"
+  		};
+  		firebase.initializeApp(config);
+		
+		var name = $("#name");
+		var destination = $("#destination");
+		var frequency = $("#frequency");
+		var arrival = $("#arrival");
+		var minutes = $("minutes");
+		
+		var nameText = $("#nametext");	
+		var destinationText = $("#destinationtext");
+		var	firsttrainText = $("#firsttext");
+		var frequencyText = $("#frequencytext");
+		var submitBtn = $("#submitBtn");
+
+
+		function submitClick(){
+			var firebaseRef = firebase.database().ref();
+
+			var namevalue = nameText.val();
+			var destinationvalue = destinationText.val();
+			var firsttrainvalue = firsttrainText.val();
+			var frequencyvalue = frequencyText.val();
+
+			const train = {
+        		name: namevalue.val(),
+        		destination: destinationvalue.val(),
+        		frequency: frequencyvalue.val(),
+        		//arrival: .val(),
+        		//minutes: .val()
+      }
+
+		}
+
+		var firebasename = firebase.database().ref().child("Name");
+		var firebasedestination = firebase.database().ref().child("Destination");
+		var firebasefirsttrain = firebase.database().ref().child("FirstTrain");
+		var firebasefrequency = firebase.database().ref().child("Frequency");
+
+		//firebasename.on('value', function(datasnapshot){
+		function name(){
+			var array = [];
+			array.push("hi");
+		}
+		name.append(array);
+
+		//});
+		</script>
+		
+	</body>
+</html>
