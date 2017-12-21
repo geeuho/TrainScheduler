@@ -5,6 +5,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <title>Train Scheduler</title>
 </head>
 <body>
@@ -14,27 +15,30 @@
 	</div>
 	<div class="panel panel-default">
   <!-- Default panel contents -->
-  	<div class="panel-heading">Train Schedule</div>
-  		<div class="panel-body">
-    		<table>
-    			<b class="col-md-3">Train Name</b>
-    			<b class="col-md-3">Destination</b>
-    			<b class="col-md-2">Frequency(min)</b>
-    			<b class="col-md-2">Next Arrival</b>
-    			<b class="col-md-2">Minutes Away</b>
-    		</table>
-  		
-	<br><br>
-  <!-- Table -->
-  			<table class="table">
-    			<span class="col-md-3" id=name>Train Name</span>
-    			<span class="col-md-3" id=destination>Destination</span>
-    			<span class="col-md-2" id=frequency>Frequency(min)</span>
-    			<span class="col-md-2" id=arrival>Next Arrival</span>
-    			<span class="col-md-2" id=minutes>Minutes Away</span>
-  			</table>
-  		</div>
-	</div>
+  <div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<!-- Current Trains-->
+			<div class="panel panel-default">
+			  	<div class="panel-heading">
+					<h3 class="panel-title"><strong>Current Train Schedule</strong></h3>
+			  	</div>
+			<div class="panel-body">
+				<table class="table table-hover" id='train-table'>
+				  	<thead>
+						<tr>
+							<th>Train Time</th>
+							<th>Destination</th> 
+							<th>Frequency (min)</th>
+							<th>Next Arrival</th>
+							<th>Minutes Away</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+				</div>
+			</div>
         <!-- Wells for displaying all users -->
  
 	<h2>Input Train Info!</h2>
@@ -79,12 +83,6 @@
   		};
   		firebase.initializeApp(config);
 		
-		var name = $("#name");
-		var destination = $("#destination");
-		var frequency = $("#frequency");
-		var arrival = $("#arrival");
-		var minutes = $("minutes");
-		
 		var nameText = $("#nametext");	
 		var destinationText = $("#destinationtext");
 		var	firsttrainText = $("#firsttext");
@@ -93,37 +91,66 @@
 
 
 		function submitClick(){
-			var firebaseRef = firebase.database().ref();
+			event.preventDefault();
 
-			var namevalue = nameText.val();
-			var destinationvalue = destinationText.val();
-			var firsttrainvalue = firsttrainText.val();
-			var frequencyvalue = frequencyText.val();
+			var firebase = database.ref()
 
-			const train = {
-        		name: namevalue.val(),
-        		destination: destinationvalue.val(),
-        		frequency: frequencyvalue.val(),
-        		//arrival: .val(),
-        		//minutes: .val()
-      }
+			var namevalue = nameText.val().trim();
+			var destinationvalue = destinationText.val().trim();
+			var firsttrainvalue = firsttrainText.val().trim();
+			var frequencyvalue = frequencyText.val().trim();
 
+			var newTrain = {
+				name: namevalue,
+				destination: destinationvalue,
+				firsttrain: firsttrainvalue,
+				frequency: frequencyvalue,
+			};
+
+			firebase.push(newTrain);
+			
+
+	  	
 		}
+		
+		var database = firebase.database();
+		database.ref().on("child_added", function(snapshot) {
+      // Log everything that's coming out of snapshot
+		var name = snapshot.val().name;
+		var destination = snapshot.val().destination;
+		var firsttrain = snapshot.val().firsttrain;
+		var frequency = snapshot.val().frequency;
 
-		var firebasename = firebase.database().ref().child("Name");
-		var firebasedestination = firebase.database().ref().child("Destination");
-		var firebasefirsttrain = firebase.database().ref().child("FirstTrain");
-		var firebasefrequency = firebase.database().ref().child("Frequency");
+      	console.log(snapshot.val());
+      	console.log(snapshot.val().name);
+      	console.log(snapshot.val().destination);
+      	console.log(snapshot.val().firsttrain);
+      	console.log(snapshot.val().frequency);
+      // Change the HTML to reflect
+		
+		var now = moment();
+		var firsttraintime = moment(firsttrain,"hh:mm");
+		var difference = now.diff((firsttraintime), "minutes");
+		var remaining = difference % frequency;
+		var minutesaway = frequency - remaining;
+		var next = moment().add(minutesaway, "minutes");
+		var nextarrival = moment(next).format("hh:mm a");
 
-		//firebasename.on('value', function(datasnapshot){
-		function name(){
-			var array = [];
-			array.push("hi");
-		}
-		name.append(array);
+		//console.log(now);
+		//console.log(firsttraintime);
+		console.log(nextarrival);
 
-		//});
+		$("#train-table").find("tbody").append("<tr>"+"<td>" + name + "</td>" 
+		+"<td>" + destination + "</td>" 
+		+"<td>" + frequency + "</td>"
+		+"<td>" + nextarrival + "</td>" 
+		+"<td>" + minutesaway + "</td>"  
+		+ "</tr>")
+		
+	});
+	
 		</script>
 		
 	</body>
 </html>
+
