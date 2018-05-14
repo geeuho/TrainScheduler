@@ -5,10 +5,11 @@
 ![History](assets/img/github/screenshot3.png)
 
 ## What Is it?
-A web based application using Firebase, used to help you keep track of daily calorie intake as well as daily calories burned.
+A web based application that uses Firebase to track and store information of trains with 
 
-## How Can I Start Being My Better Self?
-The application is hosted on GitHub Pages, click [HERE](https://xtiane.github.io/TrackYourself/) to access it.  You will need to create a login account to start using it.
+## How Does it Work?
+The application is hosted on GitHub Pages, click [HERE](https://xtiane.github.io/TrackYourself/) to access it.  
+
 
 ## Under The Hood
 The application was created using Bootstrap, JavaScript and Firebase.
