@@ -28,7 +28,7 @@ First Train Time
 
 Frequency
 
-### You must enter all information in order for new train information to be inputted to firebase.
+#### You must enter all information in order for new train information to be inputted to firebase.
 
 ## Under the hood
 The application was created using HTML, Bootstrap for CSS, and JavaScript.
