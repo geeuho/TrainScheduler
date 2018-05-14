@@ -9,9 +9,13 @@ A web based application that uses Firebase to track and store train information 
 The categories of information include:
       
 Train Time (what time the first train will get there)
+
 Destination Name
+
 Frequency (how often that train arrives at the station, in minutes) 
+
 Next Arrival (what time the next train will get there)
+
 Minutes Away (how many minutes it will take for the next train to get to the station)
 
 ## How Does it Work?
@@ -21,8 +25,11 @@ Once you are on the page, you can create a new train entry by inputting the requ
 These are:
 
 Train Name
+
 Destination Name
+
 First Train Time 
+
 Frequency
 
 You must enter all information in order for new train information to be inputted to firebase.
