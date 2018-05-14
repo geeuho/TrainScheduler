@@ -1,9 +1,5 @@
 # TrackYourself
 
-![Home Page](assets/img/github/screenshot1.png)
-![Input](assets/img/github/screenshot2.png)
-![History](assets/img/github/screenshot3.png)
-
 ## What Is it?
 A web based application that uses Firebase to track and store train information for a train station with Firebase.
 The categories of information include:
@@ -32,7 +28,7 @@ First Train Time
 
 Frequency
 
-You must enter all information in order for new train information to be inputted to firebase.
+### You must enter all information in order for new train information to be inputted to firebase.
 
 ## Under the hood
 The application was created using HTML, Bootstrap for CSS, and JavaScript.
